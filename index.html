@@ -44,7 +44,14 @@
 
     <div class="terminal-container">
         <!-- This line tells the page to grab your Python file and run it inside the box -->
-        <script type="py" src="./main.py" config='{"packages": []}'></script>
+       <script type="py" config='{
+    "files": {
+        "main.py": "./main.py"
+    }
+}'>
+    # This code tells the terminal to run your script as soon as it loads
+    import main
+</script>
     </div>
 
 </body>
