@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Island Game</title>
+    
+    <!-- This pulls in the free tool that runs Python in a web browser -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #f1c40f;
+            margin-bottom: 10px;
+        }
+        .terminal-container {
+            width: 100%;
+            max-width: 700px;
+            background-color: #000000;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🏴‍☠️ Treasure Island Map Game</h1>
+    <p>Type your choices directly into the console box below!</p>
+
+    <div class="terminal-container">
+        <!-- This line tells the page to grab your Python file and run it inside the box -->
+        <script type="py" src="./main.py" config='{"packages": []}'></script>
+    </div>
+
+</body>
+</html>
