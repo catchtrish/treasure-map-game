@@ -38,16 +38,17 @@
             padding: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             min-height: 400px;
+            white-space: pre-wrap; /* Keeps our ASCII art looking perfect */
         }
     </style>
 </head>
 <body>
 
     <h1>🏴‍☠️ Treasure Island Map Game</h1>
-    <p>Please wait a moment for the secure terminal to boot up...</p>
+    <p>Watch the screen and answer the pop-up prompts to navigate the island!</p>
 
     <div class="terminal-container">
-        <script type="py-worker" src="./main.py" terminal></script>
+        <script type="py" src="./main.py" async></script>
     </div>
 
 </body>
