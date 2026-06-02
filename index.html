@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Treasure Island Game</title>
     
-    <!-- This pulls in the free tool that runs Python in a web browser -->
     <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
     <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
 
@@ -40,18 +39,10 @@
 <body>
 
     <h1>🏴‍☠️ Treasure Island Map Game</h1>
-    <p>Type your choices directly into the console box below!</p>
+    <p>Click inside the black box below and type your answers!</p>
 
     <div class="terminal-container">
-        <!-- This line tells the page to grab your Python file and run it inside the box -->
-       <script type="py" config='{
-    "files": {
-        "main.py": "./main.py"
-    }
-}'>
-    # This code tells the terminal to run your script as soon as it loads
-    import main
-</script>
+        <script type="py" src="main.py" async></script>
     </div>
 
 </body>
