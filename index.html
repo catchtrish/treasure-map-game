@@ -23,7 +23,33 @@
         }
         h1 {
             color: #f1c40f;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #bbb;
+        }
+        /* Style for our new Run Game button */
+        .run-btn {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+            margin-bottom: 20px;
+        }
+        .run-btn:hover {
+            background-color: #d35400;
+            transform: scale(1.05);
+        }
+        .run-btn:active {
+            transform: scale(0.98);
         }
         .terminal-container {
             width: 100%;
@@ -33,17 +59,22 @@
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            min-height: 300px;
         }
     </style>
 </head>
 <body>
 
     <h1>🏴‍☠️ Treasure Island Map Game</h1>
-    <p>Click inside the black box below and type your answers!</p>
+    <p>Click the button below to initialize the terminal and start your journey!</p>
+
+    <button class="run-btn" py-click="start_game">▶ RUN GAME</button>
 
     <div class="terminal-container">
-        <script type="py" terminal worker>
-print(r'''
+        <script type="py" config='{"interpreter": "pyodide"}' terminal worker>
+# We wrapped your game inside a function so it waits for the button click
+def start_game():
+    print(r'''
 *******************************************************************************
           |                   |                  |                    |
  _________|________________.=""_;=.______________|_____________________|_______
@@ -66,27 +97,27 @@ ____/______/______/______/______/_____"=.o|o_.--""___/______/______/______/____
 *******************************************************************************
 ''')
 
-print("Welcome to Treasure Island.")
-print("Your mission is to find the treasure.")
+    print("Welcome to Treasure Island.")
+    print("Your mission is to find the treasure.")
 
-choice1 = input('You are at a crossroad. Do you want to go "left" or "right"? ').lower()
+    choice1 = input('You are at a crossroad. Do you want to go "left" or "right"? ').lower()
 
-if choice1 == "left":
-    choice2 = input('Now there is a river to cross. Do you want to try swimming across, or wait for a bus? Type "swim" or "wait". ').lower()
-    
-    if choice2 == "wait":
-        choice3 = input('You arrived at the destination safe and sound. Now there is a house that has a choice of 3 doors to enter. You can choose the "yellow" door, the "blue" door, or the "red" door. Type one of the colors. ').lower()
+    if choice1 == "left":
+        choice2 = input('Now there is a river to cross. Do you want to try swimming across, or wait for a bus? Type "swim" or "wait". ').lower()
         
-        if choice3 == "yellow":
-            print('You found the treasure! You Win!')
-        elif choice3 == "blue":
-            print("You were eaten by beasts! Game Over.")
+        if choice2 == "wait":
+            choice3 = input('You arrived at the destination safe and sound. Now there is a house that has a choice of 3 doors to enter. You can choose the "yellow" door, the "blue" door, or the "red" door. Type one of the colors. ').lower()
+            
+            if choice3 == "yellow":
+                print('You found the treasure! You Win!')
+            elif choice3 == "blue":
+                print("You were eaten by beasts! Game Over.")
+            else:
+                print("You were burned by fire! Game Over.")
         else:
-            print("You were burned by fire! Game Over.")
+            print("You ran into a school of piranha fish and didn't survive. Game over.")
     else:
-        print("You ran into a school of piranha fish and didn't survive. Game over.")
-else:
-    print("You triggered the booby trap and unlocked the trap door and you fell in. Game over.")
+        print("You triggered the booby trap and unlocked the trap door and you fell in. Game over.")
         </script>
     </div>
 
