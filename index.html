@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Treasure Island Game</title>
-    
-    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css" />
-    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
-
     <style>
         body {
             background-color: #1a1a1a;
@@ -29,8 +25,7 @@
             margin-bottom: 20px;
             color: #bbb;
         }
-        /* Styling our interactive console window */
-        py-terminal {
+        .terminal-container {
             width: 100%;
             max-width: 700px;
             background-color: #000000;
@@ -39,16 +34,128 @@
             padding: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             min-height: 400px;
-            display: block;
+            overflow-y: auto;
+        }
+        .output-line {
+            white-space: pre-wrap;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .input-area {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .prompt-symbol {
+            color: #2ecc71;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        input-field {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            width: 100%;
+            outline: none;
         }
     </style>
 </head>
 <body>
 
     <h1>🏴‍☠️ Treasure Island Map Game</h1>
-    <p>Click inside the black terminal box below to type your answers directly!</p>
+    <p>Type your answers directly into the terminal box below and press Enter!</p>
 
-    <py-terminal src="./game.py"></py-terminal>
+    <div class="terminal-container" onclick="document.getElementById('user-input').focus()">
+        <div id="terminal-output"></div>
+        <div class="input-area" id="input-container">
+            <span class="prompt-symbol">&gt;</span>
+            <input type="text" id="user-input" autofocus autocomplete="off">
+        </div>
+    </div>
 
+    <script>
+        const output = document.getElementById('terminal-output');
+        const userInput = document.getElementById('user-input');
+        const inputContainer = document.getElementById('input-container');
+        
+        let gameState = 'choice1';
+
+        const asciiArt = `*******************************************************************************
+          |                   |                  |                    |
+ _________|________________.=""_;=.______________|_____________________|_______
+|                   |  ,-"_,=""    \`"=.|                  |
+|___________________|__"=._o\`"-._        \`"=.______________|___________________
+          |                \`"=._o\`"=._      _\`"=._                     |
+ _________|_____________________:=._o "=._."_.-="'"=.__________________|_______
+|                   |    __.--" , ; \`"=._o." ,-"""-._ ".   |
+|___________________|_._"   ,. .\` \` \`\` ,  \`"-._"-._   ". '__|___________________
+          |           |o\`"=._\` , "\` \`; .". ,  "-._"-._; ;              |
+ _________|___________| ;\`-.o\`"=._; ." \` '\`."\\ \` . "-._ /_______________|_______
+|                   | |o ;    \`"-.o\`"=._\`\`  '\` " ,__.--o;   |
+|___________________|_| ;     (#) \`-.o \`"=.\`_.--"_o.-; ;___|___________________
+____/______/______/___|o;._    "      \`".o|o_.--"    ;o;____/______/______/____
+/______/______/______/_\`"=._o--._        ; | ;        ; ;/______/______/______/_
+____/______/______/______/__\`"=._o--._   ;o|o;     _._;o;____/______/______/____
+/______/______/______/______/____\`"=._o._; | ;_.--"o.--"_/______/______/______/_
+____/______/______/______/______/_____\`"=._o|o_.--""___/______/______/______/____
+/______/______/______/______/______/______/______/______/______/______/_____ /
+*******************************************************************************`;
+
+        function printToTerminal(text, color = '#ffffff') {
+            const line = document.createElement('div');
+            line.className = 'output-line';
+            line.style.color = color;
+            line.textContent = text;
+            output.appendChild(line);
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        // Start Game
+        printToTerminal(asciiArt, '#f1c40f');
+        printToTerminal("Welcome to Treasure Island.");
+        printToTerminal("Your mission is to find the treasure.\n");
+        printToTerminal('You are at a crossroad. Do you want to go "left" or "right"?');
+
+        userInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const answer = userInput.value.trim().toLowerCase();
+                if (!answer) return;
+                
+                printToTerminal('> ' + userInput.value, '#2ecc71');
+                userInput.value = '';
+
+                if (gameState === 'choice1') {
+                    if (answer === 'left') {
+                        printToTerminal('\nNow there is a river to cross. Do you want to try swimming across, or wait for a bus? Type "swim" or "wait".');
+                        gameState = 'choice2';
+                    } else {
+                        printToTerminal("\nYou triggered the booby trap and unlocked the trap door and you fell in. Game over.", '#e74c3c');
+                        inputContainer.style.display = 'none'; // End game
+                    }
+                } 
+                else if (gameState === 'choice2') {
+                    if (answer === 'wait') {
+                        printToTerminal('\nYou arrived at the destination safe and sound. Now there is a house that has a choice of 3 doors to enter. You can choose the "yellow" door, the "blue" door, or the "red" door. Type one of the colors.');
+                        gameState = 'choice3';
+                    } else {
+                        printToTerminal("\nYou ran into a school of piranha fish and didn't survive. Game over.", '#e74c3c');
+                        inputContainer.style.display = 'none';
+                    }
+                } 
+                else if (gameState === 'choice3') {
+                    if (answer === 'yellow') {
+                        printToTerminal('\nUnbelievable! You found the treasure! You Win! 🏆', '#f1c40f');
+                    } else if (answer === 'blue') {
+                        printToTerminal("\nYou were eaten by beasts! Game Over.", '#e74c3c');
+                    } else {
+                        printToTerminal("\nYou were burned by fire! Game Over.", '#e74c3c');
+                    }
+                    inputContainer.style.display = 'none';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
