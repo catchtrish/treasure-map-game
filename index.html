@@ -37,9 +37,12 @@
             overflow-y: auto;
         }
         .output-line {
-            white-space: pre-wrap;
+            white-space: pre; /* Keeps spaces exactly as written */
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.1; /* Tightens the vertical gaps between lines */
             margin-bottom: 8px;
-            line-height: 1.4;
+            overflow-x: auto; /* Prevents the art from breaking on tiny phone screens */
+        }
         }
         .input-area {
             display: flex;
