@@ -29,7 +29,8 @@
             margin-bottom: 20px;
             color: #bbb;
         }
-        .terminal-container {
+        /* Styling our interactive console window */
+        py-terminal {
             width: 100%;
             max-width: 700px;
             background-color: #000000;
@@ -38,18 +39,16 @@
             padding: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             min-height: 400px;
-            white-space: pre-wrap; /* Keeps our ASCII art looking perfect */
+            display: block;
         }
     </style>
 </head>
 <body>
 
     <h1>🏴‍☠️ Treasure Island Map Game</h1>
-    <p>Watch the screen and answer the pop-up prompts to navigate the island!</p>
+    <p>Click inside the black terminal box below to type your answers directly!</p>
 
-    <div class="terminal-container">
-        <script type="py" src="./game.py" async></script>
-    </div>
+    <py-terminal src="./game.py"></py-terminal>
 
 </body>
 </html>
